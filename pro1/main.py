@@ -23,8 +23,14 @@ string = "2018-07-19 14:19 Wojcik, Jacek (Nokia - PL/Wroclaw) The group in charg
 2018-07-18 17:10 Diallo, Souleymane (Nokia - FR/Paris-Saclay) The group in charge changed from NIPSSHC5G to NIHZSFHSID. Reason for Transfer"
 
 if __name__ == "__main__":
+    if len(sys.argv) == 1:
+        exit()
     file_path = sys.argv[1]
-    records = csv.reader(open(file_path, 'r', encoding='UTF-8'))
+    try:
+        records = csv.reader(open(file_path, 'r', encoding='UTF-8'))
+    except FileNotFoundError as e:
+        print(file_path+" is not be founded")
+        exit()
     for record in records:
         print(get_transfer_path(record[15]))
 
